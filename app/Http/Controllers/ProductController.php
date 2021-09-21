@@ -47,9 +47,9 @@ class ProductController extends Controller
         // dd($categories);
         $products1 = category::select('id', 'c_name')->get();
 
-         return view('products.create', compact('products1'));
+        return view('products.create', compact('products1'));
         //return view('products.create');
-    } 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,23 +70,22 @@ class ProductController extends Controller
             // dd($path);
         }
 
-        $products = new Products();     
+        $products = new Products();
         $products->name = $request->name;
         $products->description = $request->des;
         $products->price = $request->price;
-        $products->image = isset($name) ? $name : "";        
+        $products->image = isset($name) ? $name : "";
         
-        $products->user_role = Auth::user()->role_id;
-        
-
+        $products->created_by = Auth::user()->role_id;
+        $products->user_id = Auth::user()->id;
+        // dd($products);
 
         $save = $products->save();
         $products1 =  $request->category;
         $products->category()->attach($products1);
         if ($save) {
-           return redirect()->route('products.index');
+            return redirect()->route('products.index');
         }
-    
     }
 
 
@@ -110,12 +109,15 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
-        $products1 = category::select('id', 'c_name')->get();
-        $products = Products::find($id);
-         return view('products.edit', compact('products','products1'));
-        // return view('products.edit', compact('products'));
+        $data = products::find($id);
         
+        if (Auth::user()->id == $data->user_id) {
+            $products1 = category::select('id', 'c_name')->get();
+            $products = Products::find($id);
+            return view('products.edit', compact('products', 'products1'));
+        } else {
+            return redirect()->route('products.index');
+        }
     }
 
     /**
@@ -129,7 +131,7 @@ class ProductController extends Controller
     {
         //
 
-        $products = Products::find($id);     
+        $products = Products::find($id);
         $products->name = $request->name;
         $products->description = $request->des;
         $products->price = $request->price;
@@ -141,7 +143,7 @@ class ProductController extends Controller
         $products1 =  $request->category;
         $products->category()->sync($products1);
         if ($save) {
-           return redirect()->route('products.index');
+            return redirect()->route('products.index');
         }
     }
 
@@ -155,9 +157,15 @@ class ProductController extends Controller
     {
         //
         //
-       
-        Products::where('id', $id)->delete();
-        return  redirect()->route('products.index');
+        $data = products::find($id);
+        
+        if (Auth::user()->id == $data->user_id) {
+            $products = Products::find($id);
+            Products::where('id', $id)->delete();
 
+            return  redirect()->route('products.index');
+        } else {
+            return redirect()->route('products.index');
+        }
     }
 }

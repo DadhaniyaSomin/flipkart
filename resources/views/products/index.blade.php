@@ -41,7 +41,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 {{-- <th>category</th> --}}
-                <th>user role</th>
+                <th>created by</th>
                 <th>EDIT/DELETE</th>
                 <th>image</th>
             </tr>
@@ -56,19 +56,23 @@
             <td>{{$product->description}}</td>
             <td>{{$product->price}}</td>
             {{-- <td>{{$product->category}}</td> --}}
-            <td>{{$product->user_role}}</td>
+            <td>{{$product->created_by}}</td>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    @if($product->user_role == 1 || $product->user_role == 2)
-                    <a role="button" href="{{ route('products.edit',$product->id) }}"><button type="button" class="btn btn-warning mr-2"> edit</button></a>    
-                    @endif
-                    @if($product->user_role != 2 )
+                    @if(Auth::user()->role_id == 2)
+                      @if (Auth::user()->id == $product->user_id)
+                      <a role="button" href="{{ route('products.edit',$product->id) }}"><button type="button" class="btn btn-warning mr-2"> edit</button></a>
+                    
+                      @endif   
+                    @else(Auth::user()->role_id == 1 )
+                    <a role="button" href="{{ route('products.edit',$product->id) }}"><button type="button" class="btn btn-warning mr-2"> edit</button></a> 
                     <form action="{{ route('products.destroy',$product->id) }}" method="post">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-danger">delete</button>
                     </form>
-                    @endif
+                   
+                   @endif 
                 </div>
             </td>
             <td><img src="{{ url('image/',$product->image) }}" width="60" height="50"></td>

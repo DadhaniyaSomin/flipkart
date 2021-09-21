@@ -15,8 +15,8 @@ class CategoryProducts extends Migration
     {
         Schema::create('category_Products', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
-            $table->integer('products_id');
+            $table->integer('category_id')->references('id')->on('category'); 
+            $table->integer('products_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <input type="text" name="role_id" id="role_id" value="{{2}}" hidden >
+                        
                         
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -40,14 +40,16 @@
                                 @enderror
                             </div>
                          </div>
-                        {{-- <div class="form-group row">
+                        <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right"> Role</label>
                             <div class="col-md-6">
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select"   name="role_id" id="role_id" aria-label="Default select example">
                                     <option selected>Select Role</option>
+                                    <option value="1">ADMIN</option>
+                                    <option value="2">User</option>
                                   </select>
                             </div>
-                        </div> --}}
+                        </div> 
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

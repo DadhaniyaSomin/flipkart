@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('c_name');
             $table->string('icon');
-            $table->string('user_id');
+            $table->string('created_by');
             $table->softDeletes();
             $table->timestamps();
         });

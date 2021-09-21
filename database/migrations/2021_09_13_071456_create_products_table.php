@@ -18,8 +18,9 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->float('price');
+            $table->string('created_by');
+            $table->integer('user_id');
             $table->string('image');
-            $table->string('user_role');
             $table->softDeletes();
             $table->timestamps();
         });

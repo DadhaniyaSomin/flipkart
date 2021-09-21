@@ -26,7 +26,7 @@
      <select class="form-control" multiple data-live-search="true" name="category[]">
         <option value="" >select category</option>
         @for($i = 0 ; $i < count($products1) ; $i++) 
-           <option value="{{$products1[$i]->id}}" {{$products1[$i]->id == $products-> ? ''}}>{{$products1[$i]->c_name}}</option>
+           <option value="{{$products1[$i]->id}}" >{{$products1[$i]->c_name}}</option>
         @endfor
      </select>
   </div> 
@@ -40,7 +40,7 @@
 
 <div class="mb-3">
   <label for="Product price" class="form-label">user_role</label>
-  <input type="" class="form-control" name ="user_role" id="" placeholder="Enter the user role" value="{{$products->user_role}}" disabled>
+  <input type="" class="form-control" name ="user_role" id="" placeholder="Enter the user role" value="{{$products->created_by}}" disabled>
 </div>
 
 <button type="submit" class="btn btn-outline-success">SUBMIT</button>

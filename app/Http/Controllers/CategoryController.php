@@ -57,7 +57,7 @@ class CategoryController extends Controller
         //
         $category = new Category();
         $category->c_name = $request->c_name;
-        $category->user_id =  Auth::user()->role_id;
+        $category->created_by =  Auth::user()->role_id;
         $category->icon = isset($name) ? $name : ""; 
         //dd($category);
         $save = $category->save();
@@ -89,8 +89,16 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
+        $data = category::find($id);
+        
+        if (Auth::user()->id == $data->user_id) {
         $category = category::find($id);
         return view('categories.edit', compact('category'));
+      } 
+         else {
+         return redirect()->route('category.index');
+           }
+    }
     }
 
     /**
@@ -122,7 +130,16 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+        $data = category::find($id);
+        
+        if (Auth::user()->id == $data->user_id) {
         $category = category::where('id',$id)->delete();
         return redirect()->route('categories.index');
-    }
+            
+        } 
+        else {
+            return redirect()->route('category.index');
+        }
 }
+}
+
