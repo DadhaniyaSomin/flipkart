@@ -18,13 +18,16 @@ class Products extends Model
         'name',
         'description',
         'user_role',
-        'user_role',
-        'category'
+        
     ];
 
     public function category()
     {
-        return $this->belongsTo(category::class);
+        return $this->belongsToMany(category::class,'category_products');
+    }
+    public function two()
+    {
+        return $this->belongs(category::class);
     }
 
 }

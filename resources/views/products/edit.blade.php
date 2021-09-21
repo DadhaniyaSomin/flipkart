@@ -26,10 +26,10 @@
      <select class="form-control" multiple data-live-search="true" name="category[]">
         <option value="" >select category</option>
         @for($i = 0 ; $i < count($products1) ; $i++) 
-           <option value="{{$products1[$i]->id}} ">{{$products1[$i]->c_name}}</option>
+           <option value="{{$products1[$i]->id}}" {{$products1[$i]->id == $products-> ? ''}}>{{$products1[$i]->c_name}}</option>
         @endfor
      </select>
-  </div>
+  </div> 
 </div>
 <div class="mb-3">
   <label for="formFile" class="form-label">Select Product image</label>

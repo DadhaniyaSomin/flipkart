@@ -24,7 +24,7 @@
 {{-- <div class="mb-3">
   <label for="Product price" class="form-label">category Id</label>
   <input type="text" class="form-control" name ="category_id" id="" placeholder="Enter the category">
-</div> --}}
+{{-- </div> --}}
 <div class="col-md-4">
   <div class="form-group">
      <label>selct category</label>
@@ -35,7 +35,7 @@
         @endfor
      </select>
   </div>
-</div>
+</div>  
 <button type="submit" class="btn btn-outline-success">SUBMIT</button>
 </form>
 <div>

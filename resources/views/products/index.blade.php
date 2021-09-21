@@ -40,7 +40,7 @@
                 <th>name</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>category</th>
+                {{-- <th>category</th> --}}
                 <th>user role</th>
                 <th>EDIT/DELETE</th>
                 <th>image</th>
@@ -55,7 +55,7 @@
             <td>{{$product->name}}</td>
             <td>{{$product->description}}</td>
             <td>{{$product->price}}</td>
-            <td>{{$product->category}}</td>
+            {{-- <td>{{$product->category}}</td> --}}
             <td>{{$product->user_role}}</td>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">

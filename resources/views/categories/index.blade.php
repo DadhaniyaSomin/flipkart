@@ -35,7 +35,7 @@
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <button type="submit" class="btn btn-danger" >delete</button>
             </form>  
-            @endif
+            @endif 
         </div>           
             </td>
         </tr>

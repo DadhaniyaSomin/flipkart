@@ -47,8 +47,9 @@ class ProductController extends Controller
         // dd($categories);
         $products1 = category::select('id', 'c_name')->get();
 
-        return view('products.create', compact('products1'));
-    }
+         return view('products.create', compact('products1'));
+        //return view('products.create');
+    } 
 
     /**
      * Store a newly created resource in storage.
@@ -74,11 +75,14 @@ class ProductController extends Controller
         $products->description = $request->des;
         $products->price = $request->price;
         $products->image = isset($name) ? $name : "";        
-        $products->category =  implode(',', $request->category);
+        
         $products->user_role = Auth::user()->role_id;
-        //  dd($products);
-        $save = $products->save();
+        
 
+
+        $save = $products->save();
+        $products1 =  $request->category;
+        $products->category()->attach($products1);
         if ($save) {
            return redirect()->route('products.index');
         }
@@ -94,8 +98,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $category = category::find($id)->products;
-        return view('products.index', compact('category'));
+        // $category = category::find($id)->products;
+        // return view('products.index', compact('category'));
     }
 
     /**
@@ -109,7 +113,9 @@ class ProductController extends Controller
         //
         $products1 = category::select('id', 'c_name')->get();
         $products = Products::find($id);
-        return view('products.edit', compact('products','products1'));
+         return view('products.edit', compact('products','products1'));
+        // return view('products.edit', compact('products'));
+        
     }
 
     /**
@@ -128,11 +134,12 @@ class ProductController extends Controller
         $products->description = $request->des;
         $products->price = $request->price;
 
-        $products->category =  implode(',', $request->category);
+        //$products->category =  implode(',', $request->category);
         // $products->user_role = $request->user_role;
 
         $save = $products->update();
-
+        $products1 =  $request->category;
+        $products->category()->sync($products1);
         if ($save) {
            return redirect()->route('products.index');
         }
