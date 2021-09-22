@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="container">
 <form action="{{ route('products.update', $products->id)}}" method="post" >
 <input type="hidden" name="_method" value="PUT">
@@ -24,10 +23,22 @@
   <div class="form-group">
      <label>selct category</label>
      <select class="form-control" multiple data-live-search="true" name="category[]">
-        <option value="" >select category</option>
-        @for($i = 0 ; $i < count($products1) ; $i++) 
-           <option value="{{$products1[$i]->id}}" >{{$products1[$i]->c_name}}</option>
-        @endfor
+      
+        <option value=""> select category</option>
+          {{-- @foreach($products1 as $prods)
+              
+               <option value="{{$prods->id}}" @foreach($category as $cats) @if( $cats->pivot_category_id == $prods->id )>{{$prods->c_name}}</option>
+          @endforeach --}}
+          @for($i = 0 ; $i < count($products1) ; $i++) 
+          <option value="{{$products1[$i]->id}}" 
+           @foreach ( $products1 as $cp )
+             @foreach ( $category as $cat ) 
+             {{ $cp->id == $cat->category_id  ? 'selected' : ' '}}  
+              @endforeach
+           @endforeach
+          >{{$products1[$i]->c_name}}</option>
+          @endfor
+        {{-- @foreach($item->subjectlist as $sublist){{$sublist->pivot->subject_id == $sub->id ? 'selected': ''}}   @endforeach> {{ $sub->name }} --}}
      </select>
   </div> 
 </div>

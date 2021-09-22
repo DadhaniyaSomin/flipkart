@@ -61,6 +61,13 @@ class ProductController extends Controller
     {
         //
 
+        $request->validate([
+            'name' => 'required|max:s20',
+            'description' => 'required|max:255',
+            'price' => 'required',
+            'image' => 'required',
+        ]);
+
         if ($request->hasFile('image')) {
             //
             $image = $request->file('image');
@@ -113,8 +120,14 @@ class ProductController extends Controller
         
         if (Auth::user()->id == $data->user_id || Auth::user()->role_id==1) {
             $products1 = category::select('id', 'c_name')->get();
+           
+            $category = DB::table('category_products')->where('products_id',8)->select('category_id')->get();
+           
+           // dd($category,$products1);
+           //dd($category);
+
             $products = Products::find($id);
-            return view('products.edit', compact('products', 'products1'));
+            return view('products.edit', compact('products', 'products1','category'));
         } else {
             return redirect()->route('products.index');
         }
@@ -130,12 +143,28 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name' => 'required|max:s20',
+            'description' => 'required|max:255',
+            'price' => 'required',
+            'image' => 'required',
+        ]);
+
+        if ($request->hasFile('image')) {
+            //
+            $image = $request->file('image');
+            $path = public_path('image');
+            $name = time().rand(1, 99999) . "." . $image->getClientOriginalExtension();
+            $image->move($path, $name);
+            // dd($path);
+        }
+
 
         $products = Products::find($id);
         $products->name = $request->name;
         $products->description = $request->des;
         $products->price = $request->price;
-
+        $products->image = isset($name) ? $name : "";
         //$products->category =  implode(',', $request->category);
         // $products->user_role = $request->user_role;
 
