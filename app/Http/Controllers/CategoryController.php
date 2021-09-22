@@ -44,7 +44,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       
         if ($request->hasFile('icon')) {
             //
             $icon = $request->file('icon');
@@ -58,16 +57,15 @@ class CategoryController extends Controller
         $category = new Category();
         $category->c_name = $request->c_name;
         $category->created_by =  Auth::user()->role_id;
-        $category->icon = isset($name) ? $name : ""; 
+        $category->icon = isset($name) ? $name : "";
         //dd($category);
         $save = $category->save();
-        if($category)
-         {
-             return redirect()->route('categories.index');
-           }
-        
+        if ($category) {
+            return redirect()->route('categories.index');
+        }
+    }
     
-}
+
 
     /**
      * Display the specified resource.
@@ -92,14 +90,13 @@ class CategoryController extends Controller
         $data = category::find($id);
         
         if (Auth::user()->id == $data->user_id) {
-        $category = category::find($id);
-        return view('categories.edit', compact('category'));
-      } 
-         else {
-         return redirect()->route('category.index');
-           }
+            $category = category::find($id);
+            return view('categories.edit', compact('category'));
+        } else {
+            return redirect()->route('category.index');
+        }
     }
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -113,12 +110,9 @@ class CategoryController extends Controller
         $category = category::find($id);
         $category->c_name = $request->c_name;
         $save = $category->update();
-        if($category)
-        {
+        if ($category) {
             return redirect()->route('categories.index');
         }
-
-                
     }
 
     /**
@@ -133,13 +127,12 @@ class CategoryController extends Controller
         $data = category::find($id);
         
         if (Auth::user()->id == $data->user_id) {
-        $category = category::where('id',$id)->delete();
-        return redirect()->route('categories.index');
-            
-        } 
-        else {
+            $category = category::where('id', $id)->delete();
+            return redirect()->route('categories.index');
+        } else {
             return redirect()->route('category.index');
         }
+    }
 }
-}
+
 

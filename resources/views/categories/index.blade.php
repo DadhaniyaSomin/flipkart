@@ -10,7 +10,7 @@
                 <tr>
                     <th>ID</th>
                     <th>name</th>
-                    <th>created_by</th>
+                    {{-- <th>created_by</th> --}}
                     <th>icon</th>
                     <th>EDIT/DELETE</th>
                 </tr>
@@ -20,7 +20,7 @@
                     <tr>
                         <td>{{ $cat->id }}</td>
                         <td>{{ $cat->c_name }}</td>
-                        <td>{{ $cat->created_by }}</td>
+                        {{-- <td>{{ $cat->created_by }}</td> --}}
                         <td><img src="{{ url('icon/', $cat->icon) }}" width="60" height="50"></td>
                         <td>
 

@@ -41,7 +41,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 {{-- <th>category</th> --}}
-                <th>created by</th>
+                {{-- <th>created by</th> --}}
                 <th>EDIT/DELETE</th>
                 <th>image</th>
             </tr>
@@ -56,11 +56,12 @@
             <td>{{$product->description}}</td>
             <td>{{$product->price}}</td>
             {{-- <td>{{$product->category}}</td> --}}
-            <td>{{$product->created_by}}</td>
+            {{-- <td>{{$product->created_by}}</td> --}}
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     @if(Auth::user()->role_id == 2)
                       @if (Auth::user()->id == $product->user_id)
+                      
                       <a role="button" href="{{ route('products.edit',$product->id) }}"><button type="button" class="btn btn-warning mr-2"> edit</button></a>
                     
                       @endif   

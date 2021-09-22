@@ -159,8 +159,10 @@ class ProductController extends Controller
         //
         $data = products::find($id);
         
-        if (Auth::user()->id == $data->user_id) {
+        if (Auth::user()->id == $data->user_id || Auth::user()->role_id) {
+             
             $products = Products::find($id);
+            $products->category()->detach();
             Products::where('id', $id)->delete();
 
             return  redirect()->route('products.index');

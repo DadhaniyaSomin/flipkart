@@ -15,8 +15,10 @@ class CategoryProducts extends Migration
     {
         Schema::create('category_Products', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->references('id')->on('category'); 
-            $table->integer('products_id')->references('id')->on('products');
+            $table->bigInteger('category_id')->unsigned()->index();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); 
+            $table->bigInteger('products_id')->unsigned()->index();
+            $table->foreign('products_id')->references('id')->on('products')->onDelete('cascade'); 
             $table->timestamps();
         });
     }
