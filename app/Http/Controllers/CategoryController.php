@@ -44,6 +44,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|max:s20',
+            'icon' => 'required',
+            
+        ]);
+
         if ($request->hasFile('icon')) {
             //
             $icon = $request->file('icon');
@@ -107,6 +114,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'name' => 'required|max:s20',
+            'icon' => 'required',
+            
+        ]);
+
         $category = category::find($id);
         $category->c_name = $request->c_name;
         $save = $category->update();

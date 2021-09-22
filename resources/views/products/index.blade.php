@@ -5,6 +5,9 @@
         <div class="col-5 ">
             <a href="{{route('products.create')}}"><button type="button">ADD PRODUCT</button></a>
         </div>
+        <div class="col-5 ">
+            <a href="{{route('categories.index')}}"><button type="button"> CATEGORIES</button></a>
+        </div>
         {{-- @if(!(isset($category)))
         <div class="col-auto align-content-center align-self-stretch">
             <h1 class="mb-4">Select Category</h1>
