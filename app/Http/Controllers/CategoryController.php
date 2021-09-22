@@ -89,7 +89,7 @@ class CategoryController extends Controller
         //
         $data = category::find($id);
         
-        if (Auth::user()->id == $data->user_id) {
+        if (Auth::user()->id == $data->user_id || Auth::user()->role_id==1) {
             $category = category::find($id);
             return view('categories.edit', compact('category'));
         } else {
@@ -126,11 +126,14 @@ class CategoryController extends Controller
         //
         $data = category::find($id);
         
-        if (Auth::user()->id == $data->user_id) {
+        if (Auth::user()->id == $data->user_id || Auth::user()->role_id=1) {
+            
+            $category = category::find($id);
+            $category->Products()->detach();
             $category = category::where('id', $id)->delete();
             return redirect()->route('categories.index');
         } else {
-            return redirect()->route('category.index');
+            return redirect()->route('categories.index');
         }
     }
 }

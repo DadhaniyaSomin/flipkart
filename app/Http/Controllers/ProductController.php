@@ -111,7 +111,7 @@ class ProductController extends Controller
     {
         $data = products::find($id);
         
-        if (Auth::user()->id == $data->user_id) {
+        if (Auth::user()->id == $data->user_id || Auth::user()->role_id==1) {
             $products1 = category::select('id', 'c_name')->get();
             $products = Products::find($id);
             return view('products.edit', compact('products', 'products1'));
@@ -159,7 +159,7 @@ class ProductController extends Controller
         //
         $data = products::find($id);
         
-        if (Auth::user()->id == $data->user_id || Auth::user()->role_id) {
+        if (Auth::user()->id == $data->user_id || Auth::user()->role_id==1) {
              
             $products = Products::find($id);
             $products->category()->detach();
